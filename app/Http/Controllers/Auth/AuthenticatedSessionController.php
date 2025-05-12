@@ -24,6 +24,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate the request data
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -32,8 +33,18 @@ class AuthenticatedSessionController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Redirect to the dashboard after successful login
-            return redirect()->intended('/dashboard');
+            // Determine the redirect URL based on the user's role
+            $url = "";
+            if ($request->user()->role === 'admin') {
+                $url = '/admin/dashboard';
+            } elseif ($request->user()->role === 'agent') {
+                $url = '/agent/dashboard';
+            } else {
+                $url = '/dashboard'; // Added leading slash
+            }
+
+            // Redirect to the intended URL after successful login
+            return redirect()->intended($url);
         }
 
         return back()->withErrors([

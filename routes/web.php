@@ -9,6 +9,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'dashboard'])
+    ->name('admin.dashboard')
+    ->middleware('auth', 'role:admin'); // Only allow access to admin users
+Route::get('/agent/dashboard', [\App\Http\Controllers\AgentController::class, 'dashboard'])
+    ->name('agent.dashboard')
+    ->middleware('auth', 'role:agent'); // Only allow access to agent users
+    
+
+
 Route::get('/dashboard', function () {
     return view('dashboard'); // Ensure this view exists
 })->middleware(['auth'])->name('dashboard');
