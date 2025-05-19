@@ -16,7 +16,7 @@ Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'd
 Route::get('/agent/dashboard', [\App\Http\Controllers\AgentController::class, 'dashboard'])
     ->name('agent.dashboard')
     ->middleware('auth', 'role:agent'); // Only allow access to agent users
-    
+
 
 
 Route::get('/dashboard', function () {
@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/agent/become', [\App\Http\Controllers\AgentController::class, 'showCategoryForm'])->name('agent.become');
+    Route::post('/agent/become', [\App\Http\Controllers\AgentController::class, 'storeCategory'])->name('agent.become.store');
 });
 
 Route::get('/email/verify', function () {

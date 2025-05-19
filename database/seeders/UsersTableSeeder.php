@@ -21,6 +21,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('password'),
                 'role' => 'admin',
+                'categories' => null,
             ],
 
             // Agent
@@ -29,6 +30,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'agent@gmail.com',
                 'password' => Hash::make('password'),
                 'role' => 'agent',
+                'categories' => 'hotel',
             ],
 
             // User
@@ -37,6 +39,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'user@gmail.com',
                 'password' => Hash::make('password'),
                 'role' => 'user',
+                'categories' => null,
             ],
         ]);
     }
